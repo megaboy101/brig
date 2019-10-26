@@ -4,7 +4,7 @@ defmodule BrigWeb.ProfessionalController do
   alias Brig.Professionals
 
   def all(conn, _params) do
-    professionals = Professionals.list_professionals()
+    professionals = Professionals.list()
 
     conn
     |> render("all.json", professionals: professionals)
