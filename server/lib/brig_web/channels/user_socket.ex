@@ -1,6 +1,8 @@
 defmodule BrigWeb.UserSocket do
   use Phoenix.Socket
 
+  channel "echo:*", BrigWeb.EchoChannel
+
   ## Channels
   # channel "room:*", BrigWeb.RoomChannel
 
