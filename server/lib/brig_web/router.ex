@@ -9,5 +9,7 @@ defmodule BrigWeb.Router do
     pipe_through :api
 
     get("/professionals", ProfessionalController, :all)
+
+    post("/professionals/search", ProfessionalController, :search)
   end
 end
