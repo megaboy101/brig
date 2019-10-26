@@ -7,7 +7,7 @@ import { ApplicationProvider, Layout, Text, IconRegistry } from 'react-native-ui
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import * as Font from 'expo-font'
 import { ChatContainer as Chat } from './src/chat/containers/chat.container';
-import { Directory } from './src/directory/Directory';
+import { DirectoryContainer as Directory } from './src/directory/containers/Directory.container';
 import { Questionnaire } from './src/questionnaire/Questionnaire';
 
 const AppNavigator = createStackNavigator({
@@ -15,7 +15,7 @@ const AppNavigator = createStackNavigator({
   Directory,
   Questionnaire
 }, {
-  initialRouteName: 'Chat'
+  initialRouteName: 'Directory'
 });
 
 const AppContainer = createAppContainer(AppNavigator)
