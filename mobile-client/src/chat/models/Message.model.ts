@@ -5,3 +5,8 @@ export interface Message {
   text: string;
   time: string;
 }
+
+export interface SocketMessage {
+  user: string
+  content: string
+}

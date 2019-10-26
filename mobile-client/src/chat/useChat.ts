@@ -6,37 +6,39 @@ export interface Message {
   text: string
 }
 
-export function useChat(socket: Socket, channel: string, handleMessage: (msg: any) => void) {
+export function useChat(socket: Socket, topic: string, handleMessage: (msg: any) => void) {
   // Chat config constants
   const user = 'AnonymousCoward'
   const body = 'I got something to say.'
   const timeout = 10000
 
   // Create a socket for connections
-  socket.onOpen(() => console.log('Connected.'))
-  socket.onError(() => console.log('Cannot connect.'))
-  socket.onClose(() => console.log('Goodbye.'))
+  socket.onOpen(() => console.warn('Connected.'))
+  socket.onError(() => console.warn('Cannot connect.'))
+  socket.onClose(() => console.warn('Goodbye.'))
   socket.connect({})
 
-  const chan = socket.channel(channel, { user })
+  const chan = socket.channel(topic, { user })
 
   // join the channel and listen
   chan.join()
-    .receive('ignore', () => console.log('Access denied.'))
-    .receive('ok', () => console.log('Access granted.'))
-    .receive('timeout', () => console.log('Must be MongoDB.'))
+    .receive('ignore', () => console.warn('Access denied.'))
+    .receive('ok', () => console.warn('Access granted.'))
+    .receive('timeout', () => console.warn('Must be MongoDB.'))
 
   // channel-level event handlers
-  chan.onError(event => console.log('Channel blew up.'))
-  chan.onClose(event => console.log('Channel closed.'))
+  chan.onError(event => console.warn('Channel blew up.'))
+  chan.onClose(event => console.warn('Channel closed.'))
 
-  chan.on(channel, handleMessage)
+  chan.on('message', (msg) => {
+    console.warn('Recieved message')
+  })
 
   const sendMessage = (content: string) => {
-    chan.push(channel, { data: content }, timeout)
-      .receive('ok', (msg) => console.log(msg))
-      .receive('error', (reasons) => console.log('flop', reasons))
-      .receive('timeout', () => console.log('slow much?'))
+    chan.push('message', { user: 'Anonymouse', content: content }, timeout)
+      .receive('ok', (msg) => console.warn(msg))
+      .receive('error', (reasons) => console.warn('flop', reasons))
+      .receive('timeout', () => console.warn('slow much?'))
   }
 
   return [

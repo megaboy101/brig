@@ -63,7 +63,7 @@ class ChatComponent extends React.Component<ChatComponentProps> {
     const { conversation } = this.props;
 
     return conversation.messages.map((message: MessageModel) => {
-      if (message.author === profile1) {
+      if (message.author.name !== 'client') {
         return {
           ...message,
           alignment: Alignments['ROW-LEFT'],
