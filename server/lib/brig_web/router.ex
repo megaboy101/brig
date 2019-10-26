@@ -7,5 +7,7 @@ defmodule BrigWeb.Router do
 
   scope "/api", BrigWeb do
     pipe_through :api
+
+    get("/professionals", ProfessionalController, :all)
   end
 end
