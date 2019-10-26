@@ -1,7 +1,7 @@
 import React from 'react'
 import { Socket } from 'phoenix'
-import { StyleSheet, Text, View } from 'react-native'
 import { useChat, Message } from './useChat'
+import { Layout, Text, Button } from 'react-native-ui-kitten'
 
 const url = 'http://76528b72.ngrok.io/socket'
 const socket = new Socket(url, {})
@@ -16,6 +16,9 @@ export const Chat = () => {
   const [ sendMessage ] = useChat(socket, 'echo', handleMessage)
 
   return (
-    <Text>Chat</Text>
+    <Layout>
+      <Text category='h4'>Welcome to UI Kitten</Text>
+      <Button>BUTTON</Button>
+    </Layout>
   )
 }
