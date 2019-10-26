@@ -14,7 +14,9 @@ defmodule BrigWeb.ProfessionalView do
       age: professional.age,
       rate: professional.rate,
       services: professional.services,
-      specialties: professional.specialties
+      specialties: professional.specialties,
+      photo: professional.photo,
+      description: professional.description
     }
   end
 end

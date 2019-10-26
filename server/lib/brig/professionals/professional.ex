@@ -15,6 +15,7 @@ defmodule Brig.Professionals.Professional do
     field :rate, :integer
     field :services, {:array, :string}
     field :specialties, {:array, :string}
+    field :photo, :string
 
     timestamps()
   end
@@ -22,7 +23,40 @@ defmodule Brig.Professionals.Professional do
   @doc false
   def changeset(professional, attrs) do
     professional
-    |> cast(attrs, [:name, :age, :rate, :latitude, :longitude, :description, :specialties, :services, :gender, :is_religious, :is_spiritual, :political_alignment])
-    |> validate_required([:name, :age, :rate, :latitude, :longitude, :description, :specialties, :services, :gender, :is_religious, :is_spiritual, :political_alignment])
+    |> cast(
+         attrs,
+         [
+           :name,
+           :age,
+           :rate,
+           :latitude,
+           :longitude,
+           :description,
+           :specialties,
+           :services,
+           :gender,
+           :is_religious,
+           :is_spiritual,
+           :political_alignment,
+           :photo
+         ]
+       )
+    |> validate_required(
+         [
+           :name,
+           :age,
+           :rate,
+           :latitude,
+           :longitude,
+           :description,
+           :specialties,
+           :services,
+           :gender,
+           :is_religious,
+           :is_spiritual,
+           :political_alignment,
+           :photo
+         ]
+       )
   end
 end
