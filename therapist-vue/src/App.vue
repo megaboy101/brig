@@ -7,11 +7,7 @@
         </li>
       </ul>
     </div>
-    <label>
-      Message:
-      <input v-on:keyup.enter="send()" v-model="currentMessage">
-    </label>
-    <button type="button" v-on:click="send()">Send</button>
+    <input v-on:keyup.enter="send()" v-model="currentMessage">
   </div>
 </template>
 
