@@ -9,6 +9,7 @@ import * as Font from 'expo-font'
 import { ChatContainer as Chat } from './src/chat/containers/chat.container';
 import { DirectoryContainer as Directory } from './src/directory/containers/Directory.container';
 import { Questionnaire } from './src/questionnaire/containers/Questionnaire.component';
+import { Intro } from './src/intro/Intro.component';
 
 const AppNavigator = createStackNavigator({
   Chat,
@@ -37,7 +38,7 @@ const App = () => {
     })
   }, [])
 
-  if (!loaded) {
+  if (loaded) {
     return (
       <>
       <IconRegistry icons={EvaIconsPack} />
@@ -51,23 +52,7 @@ const App = () => {
       <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider mapping={mapping} theme={lightTheme}>
-        <View
-          style={{ flexDirection: 'column', alignItems: 'center', height: '100%' }}
-        >
-          <View></View>
-          <Image
-            style={{ width: 80, height: 80, marginTop: 80 }}
-            source={require('./assets/images/logo.png')}
-          />
-          <Image
-            style={{ width: 300, height: 180, marginTop: 95 }}
-            source={require('./assets/images/LovingDoodle.png')}
-          />
-          <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 45 }}>
-            <Text category="h4">Welcome</Text>
-            <Text category="s1">We're glad you're here.</Text>
-          </View>
-        </View>
+        <Intro />
       </ApplicationProvider>
       </>
     )
