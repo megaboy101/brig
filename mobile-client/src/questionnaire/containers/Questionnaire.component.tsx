@@ -19,8 +19,13 @@ const mockQuestions: Question[] = [
     options: [
       { text: 'Anxiety', selected: false },
       { text: 'Depression', selected: false },
-      { text: 'LGBT+ related issues', selected: false },
-      { text: 'Help for a friend', selected: false }
+      { text: 'Fear/Phobia', selected: false },
+      { text: 'Bipolar', selected: false },
+      { text: 'Eating Disorder', selected: false },
+      { text: 'Addiction', selected: false },
+      { text: 'Post-Tramatic Stress Disorder', selected: false },
+      { text: 'Obsessive-Compulsive Disorder', selected: false }
+
     ]
   },
   {
@@ -44,6 +49,7 @@ const mockQuestions: Question[] = [
     options: [
       { text: 'Male', selected: false },
       { text: 'Female', selected: false },
+      { text: 'Non-Binary', selected: false },
       { text: 'Other', selected: false },
       { text: 'Prefer not to say', selected: false }
     ]
@@ -123,7 +129,7 @@ class QuestionnaireComponent extends React.Component<QuestionnaireProps, Questio
     console.warn(questions[5])
     const data: Search = {
       reasonsForSeekingHelp: questions[0].options.filter(o => o.selected).map(o => o.text),
-      age: /*questions[1].options.find(o => o.selected)*/ 25,
+      age: 25,
       isReligious: questions[3].options.find(o => o.selected).text === 'Yes' ? true : false,
       isSpiritual: questions[4].options.find(o => o.selected).text === 'Yes' ? true : false,
       politicalAlignment: questions[5].options.find(o => o.selected).text,
