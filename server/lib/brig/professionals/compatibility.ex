@@ -22,8 +22,8 @@ defmodule Brig.Professionals.Compatibility do
 
   defp within_threshold_distance(%{"latitude" => client_lat, "longitude" => client_lon},
                                 %{latitude: pro_lat, longitude: pro_lon}) do
-    { client_lon_float, _ } = Float.parse(client_lon)
-    { client_lat_float, _ } = Float.parse(client_lat)
+    { client_lon_float, _ } = Float.parse("#{client_lat}.0")
+    { client_lat_float, _ } = Float.parse("#{client_lon}.0")
     dist = Distance.GreatCircle.distance(
       { client_lon_float, client_lat_float },
       {Decimal.to_float(pro_lon), Decimal.to_float(pro_lat)}
