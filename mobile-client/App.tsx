@@ -53,7 +53,7 @@ const App = () => {
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider mapping={mapping} theme={lightTheme}>
         <Intro />
-      </ApplicationProvider>
+      </ApplicationProvider> 
       </>
     )
   }
