@@ -14,9 +14,10 @@ import { Intro } from './src/intro/Intro.component';
 const AppNavigator = createStackNavigator({
   Chat,
   Directory,
-  Questionnaire
+  Questionnaire,
+  Intro
 }, {
-  initialRouteName: 'Questionnaire'
+  initialRouteName: 'Intro'
 });
 
 const AppContainer = createAppContainer(AppNavigator)
@@ -52,7 +53,7 @@ const App = () => {
       <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider mapping={mapping} theme={lightTheme}>
-        <Intro />
+        <Text>Loading...</Text>
       </ApplicationProvider> 
       </>
     )

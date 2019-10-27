@@ -1,6 +1,7 @@
 import React from 'react'
-import { ViewPager, Text } from 'react-native-ui-kitten';
+import { ViewPager, Text, Button } from 'react-native-ui-kitten';
 import { View, Image } from 'react-native';
+import { NavigationStackScreenProps } from 'react-navigation-stack';
 
 interface State {
   selectedIndex: number
@@ -60,7 +61,7 @@ const StepFour = () => (
   </View>
 )
 
-const StepFive = () => (
+const StepFive = ({ finishIntro }) => (
   <View style={{ flexDirection: 'column', alignItems: 'center' }}>
     <Image
       style={{ width: 300, height: 225, marginTop: 95 }}
@@ -71,10 +72,20 @@ const StepFive = () => (
       <Text category="s1">And we will find the right mental health</Text>
       <Text category="s1">and wellbeing professionals for you.</Text>
     </View>
+
+    <Button onPress={finishIntro} style={{ width: '90%', marginTop: 30 }} size="large">ENTER</Button>
   </View>
 )
 
-export class Intro extends React.Component<{}, State> {
+interface IntroProps {
+  startHandler: () => void
+}
+
+export class Intro extends React.Component<IntroProps & NavigationStackScreenProps, State> {
+  static navigationOptions = {
+    header: null
+  }
+
   state = {
     selectedIndex: 0
   }
@@ -97,11 +108,15 @@ export class Intro extends React.Component<{}, State> {
           onSelect={this.onIndexChange}
         >
           {[
+            <StepOne key={6} />,
+            <StepOne key={7} />,
+            <StepOne key={8} />,
+            <StepOne key={9} />,
             <StepOne key={1} />,
             <StepTwo key={2} />,
             <StepThree key={3} />,
             <StepFour key={4} />,
-            <StepFive key={5} />
+            <StepFive key={5} finishIntro={() => this.props.navigation.navigate('Questionnaire')} />
           ]}
         </ViewPager>
 
