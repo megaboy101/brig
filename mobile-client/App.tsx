@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native'
+import { Image, View } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { mapping, light as lightTheme } from '@eva-design/eva'
@@ -37,7 +37,7 @@ const App = () => {
     })
   }, [])
 
-  if (loaded) {
+  if (!loaded) {
     return (
       <>
       <IconRegistry icons={EvaIconsPack} />
@@ -51,7 +51,23 @@ const App = () => {
       <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider mapping={mapping} theme={lightTheme}>
-        <Text>Loading...</Text>
+        <View
+          style={{ flexDirection: 'column', alignItems: 'center', height: '100%' }}
+        >
+          <View></View>
+          <Image
+            style={{ width: 80, height: 80, marginTop: 80 }}
+            source={require('./assets/images/logo.png')}
+          />
+          <Image
+            style={{ width: 300, height: 180, marginTop: 95 }}
+            source={require('./assets/images/LovingDoodle.png')}
+          />
+          <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 45 }}>
+            <Text category="h4">Welcome</Text>
+            <Text category="s1">We're glad you're here.</Text>
+          </View>
+        </View>
       </ApplicationProvider>
       </>
     )

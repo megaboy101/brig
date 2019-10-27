@@ -95,6 +95,9 @@ interface QuestionnaireState {
 }
 
 class QuestionnaireComponent extends React.Component<QuestionnaireProps, QuestionnaireState> {
+  static navigationOptions = {
+    header: null
+  }
 
   state = {
     questions: mockQuestions
@@ -167,7 +170,7 @@ class QuestionnaireComponent extends React.Component<QuestionnaireProps, Questio
 
   render() {
     return (
-      <Layout>
+      <Layout style={{ marginTop: 40 }}>
         <TopNavigation
           title="Tell us about Yourself..."
           alignment={'center'}

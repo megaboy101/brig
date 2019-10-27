@@ -13,10 +13,10 @@ interface QuestionSelectorProps {
 export class QuestionSelector extends React.Component<QuestionSelectorProps> {
   render() {
     return (
-      <View>
+      <View style={{ width: '100%' }}>
         <Text style={styles.header} category="s1">{this.props.question.question}</Text>
         <View
-          style={{ flexDirection: 'row', flexWrap: 'wrap' }}
+          style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}
         >
           {
             this.props.question.options.map((option, index) => {
@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
   header: {
     marginBottom: 10,
     fontWeight: '500',
-    fontSize: 15
+    fontSize: 15,
+    textAlign: 'center'
   },
   button: {
     marginRight: 8,
