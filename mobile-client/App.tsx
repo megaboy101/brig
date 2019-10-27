@@ -8,14 +8,14 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import * as Font from 'expo-font'
 import { ChatContainer as Chat } from './src/chat/containers/chat.container';
 import { DirectoryContainer as Directory } from './src/directory/containers/Directory.container';
-import { Questionnaire } from './src/questionnaire/Questionnaire';
+import { Questionnaire } from './src/questionnaire/containers/Questionnaire.component';
 
 const AppNavigator = createStackNavigator({
   Chat,
   Directory,
   Questionnaire
 }, {
-  initialRouteName: 'Directory'
+  initialRouteName: 'Questionnaire'
 });
 
 const AppContainer = createAppContainer(AppNavigator)
