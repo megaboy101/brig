@@ -32,8 +32,15 @@ defmodule Brig.Professionals.Compatibility do
     dist <= @distance_threshold
   end
 
-  defp calc_specialties(%{"reasonForSeekingHelp" => reason}, %{specialties: specialties}) do
-    if Enum.member?(specialties, reason) do 50 else 0 end
+  defp calc_specialties(%{"reasonsForSeekingHelp" => reasons}, %{specialties: specialties}) do
+    reasons
+    |> Enum.reduce(0, fn x, acc ->
+      if Enum.member?(specialties, x) do
+        acc + 25
+      else
+        acc
+      end
+    end)
   end
 
   defp calc_age(%{"age" => client_age}, %{age: pro_age}) do

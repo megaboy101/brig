@@ -14,7 +14,7 @@ defmodule BrigWeb.ProfessionalController do
   @doc """
   Body:
   {
-    reasonForSeekingHelp: string, Anxiety | Depression
+    reasonsForSeekingHelp: string[], Anxiety | Depression
     age: number
     isReligious: boolean
     isSpiritual: boolean
