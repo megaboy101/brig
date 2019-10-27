@@ -27,16 +27,16 @@ interface State {
   conversation: Conversation;
 }
 
-const mockConversation: Conversation = {
-  interlocutor: profile1,
-  messages: [],
-};
+// const mockConversation: Conversation = {
+//   interlocutor: profile1,
+//   messages: [],
+// };
 
 export class ChatContainer extends React.Component<NavigationStackScreenProps, State> {
   sendMessage: (content: string) => void
 
   componentDidMount(): void {
-    const url = 'ws://06755f46.ngrok.io/socket'
+    const url = 'ws://cbb358b7.ngrok.io/socket'
     const socket = new Socket(url, {})
     const user = 'anon'
 
@@ -86,16 +86,19 @@ export class ChatContainer extends React.Component<NavigationStackScreenProps, S
 
   public state: State = {
     newMessageText: '',
-    conversation: mockConversation,
+    conversation: { interlocutor: this.props.navigation.getParam('interlocutor'), messages: [] },
   };
 
   static navigationOptions = ({ navigation, screenProps }) => {
+    const inter = navigation.getParam('interlocutor')
     const headerProps: ChatHeaderNavigationStateParams = {
-      interlocutor: navigation.getParam('interlocutor', mockConversation.interlocutor),
+      interlocutor: inter,
       lastSeen: navigation.getParam('lastSeen', 'today'),
       onBack: navigation.getParam('onBack'),
       onProfile: navigation.getParam('onProfile'),
     };
+
+    console.warn(inter)
 
     const header = (navigationProps: NavigationStackScreenProps) => {
       return (
@@ -110,16 +113,14 @@ export class ChatContainer extends React.Component<NavigationStackScreenProps, S
   };
 
   public componentWillMount(): void {
+    const inter = this.props.navigation.getParam('interlocutor')
+    this.setState(prevState => ({
+      conversation: { ...prevState.conversation, interlocutor: inter }
+    }))
     this.props.navigation.setParams({
-      interlocutor: this.state.conversation.interlocutor,
-      onBack: this.onBackPress,
-      onProfile: this.onProfilePress,
-    });
+      interlocutor: inter
+    })
   }
-
-  private onProfilePress = (profile: Profile): void => {
-    this.props.navigation.navigate('Test Profile');
-  };
 
   private onNewMessageChange = (newMessageText: string): void => {
     this.setState({ newMessageText });
@@ -130,26 +131,6 @@ export class ChatContainer extends React.Component<NavigationStackScreenProps, S
     this.setState({
       newMessageText: ''
     })
-  };
-
-  private handleMessage(msg: SocketMessage) {
-    const newMessage: Message = {
-      author: {...profile1, name: msg.user },
-      text: msg.content,
-      time: '15:01 PM'
-    }
-
-    const conversationCopy: Conversation = this.state.conversation
-
-    conversationCopy.messages.push(newMessage)
-
-    this.setState({
-      conversation: conversationCopy
-    })
-  }
-
-  private onBackPress = (): void => {
-    this.props.navigation.goBack(null);
   };
 
   public render(): React.ReactNode {

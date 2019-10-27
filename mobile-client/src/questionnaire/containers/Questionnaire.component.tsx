@@ -3,11 +3,13 @@ import { ThemedComponentProps, Layout, TopNavigation, withStyles, ThemeType, Lis
 import { QuestionSelector } from '../components/QuestionSelector.component';
 import { Question } from '../models/Question';
 import { View } from 'react-native';
+import { Search } from '../models/Search';
+import { NavigationStackScreenProps } from 'react-navigation-stack';
 
 interface ComponentProps {
 }
 
-export type QuestionnaireProps = ComponentProps & ThemedComponentProps
+export type QuestionnaireProps = ComponentProps & ThemedComponentProps & NavigationStackScreenProps
 
 const mockQuestions: Question[] = [
   {
@@ -24,17 +26,6 @@ const mockQuestions: Question[] = [
   {
     id: 2,
     type: 'single',
-    question: 'What is your gender?',
-    options: [
-      { text: 'Male', selected: false },
-      { text: 'Female', selected: false },
-      { text: 'Other', selected: false },
-      { text: 'Prefer not to say', selected: false }
-    ]
-  },
-  {
-    id: 3,
-    type: 'single',
     question: 'How old are you?',
     options: [
       { text: '<10', selected: false },
@@ -44,6 +35,17 @@ const mockQuestions: Question[] = [
       { text: '19 - 25', selected: false },
       { text: '26-35', selected: false },
       { text: '+35', selected: false },
+    ]
+  },
+  {
+    id: 3,
+    type: 'single',
+    question: 'What is your gender?',
+    options: [
+      { text: 'Male', selected: false },
+      { text: 'Female', selected: false },
+      { text: 'Other', selected: false },
+      { text: 'Prefer not to say', selected: false }
     ]
   },
   {
@@ -73,7 +75,19 @@ const mockQuestions: Question[] = [
       { text: 'Liberal', selected: false },
       { text: 'Moderate', selected: false },
     ]
-  }
+  },
+  // We post this twice since the last element will be overwritten by the submit button
+  {
+    id: 7,
+    type: 'single',
+    question: 'What is your gender?',
+    options: [
+      { text: 'Male', selected: false },
+      { text: 'Female', selected: false },
+      { text: 'Other', selected: false },
+      { text: 'Prefer not to say', selected: false }
+    ]
+  },
 ]
 
 interface QuestionnaireState {
@@ -101,8 +115,35 @@ class QuestionnaireComponent extends React.Component<QuestionnaireProps, Questio
     })
   }
 
-  submitPreferences = () => {
-    
+  submitPreferences = async () => {
+    const questions = this.state.questions
+    console.warn(questions[5])
+    const data: Search = {
+      reasonsForSeekingHelp: questions[0].options.filter(o => o.selected).map(o => o.text),
+      age: /*questions[1].options.find(o => o.selected)*/ 25,
+      isReligious: questions[3].options.find(o => o.selected).text === 'Yes' ? true : false,
+      isSpiritual: questions[4].options.find(o => o.selected).text === 'Yes' ? true : false,
+      politicalAlignment: questions[5].options.find(o => o.selected).text,
+      longitude: 50.0,
+      latitude: 50.0,
+    }
+
+    try {
+      const res: Response = await fetch('http://cbb358b7.ngrok.io/api/professionals/search', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json()
+      this.props.navigation.navigate('Directory', { therapists: result.data })
+    } catch (e) {
+      console.warn(e.message)
+    }
+
+
   }
 
   renderItem = ({ item, index }) => {

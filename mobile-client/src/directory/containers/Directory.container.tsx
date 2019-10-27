@@ -26,96 +26,43 @@ export class DirectoryContainerComponent extends React.Component<DirectoryContai
     currentFade: 1
   }
 
+  componentDidMount() {
+    this.setState({
+      profiles: this.props.navigation.getParam('therapists')
+    })
+  }
+
   onIndexChange = (selectedIndex) => {
     this.setState({ selectedIndex });
   }
 
-  fadeProfile = (offset: number) => {
-    const realOffset = Math.abs(offset)
-    // This assumes a 360px screen width
-    const degree = 100000 / 360
-    const percentage = realOffset / degree
-
-    if (this.state.selectedIndex === 0) {
-      this.setState({
-        currentFade: realOffset >= 360 ? 100 : 1 - percentage
-      })
-    } else {
-      this.setState({
-        currentFade: realOffset >= 360 ? 100 : percentage
-      })
-    }
-  }
-
   private navigationKey: string = 'DirectoryContainer';
 
-  private onChatPress = () => {
-    this.props.navigation.navigate({
-      key: this.navigationKey,
-      routeName: 'Chat',
-    });
+  private onChatPress = (profile: Profile) => {
+    this.props.navigation.navigate('Chat', { interlocutor: profile });
   };
-
-  private decideImage() {
-    const { themedStyle } = this.props
-    if (this.state.selectedIndex === 0) {
-      return (
-        <View style={{ position: 'relative', top: 0, left: 0, flex: 1 }}>
-          <ImageBackground
-            style={{ ...themedStyle.backgroundImage }}
-            source={this.therapist2}
-          >
-            <ImageBackground
-              style={{ ...themedStyle.backgroundImage, opacity: this.state.currentFade }}
-              source={this.therapist1}
-            />
-          </ImageBackground>
-        </View>
-      )
-    } else {
-      return (
-        <View style={{ position: 'relative', top: 0, left: 0, flex: 1 }}>
-          <ImageBackground
-            style={{ ...themedStyle.backgroundImage }}
-            source={this.therapist1}
-          >
-            <ImageBackground
-              style={{ ...themedStyle.backgroundImage, opacity: this.state.currentFade }}
-              source={this.therapist2}
-            />
-          </ImageBackground>
-        </View>
-      )
-    }
-  }
 
   public render(): React.ReactNode {
     const { themedStyle } = this.props
 
     return (
-      <ContainerView style={themedStyle.container}>
-        {
-          this.decideImage()
-        }
-        <ViewPager
-          selectedIndex={this.state.selectedIndex}
-          onSelect={this.onIndexChange}
-          onOffsetChange={this.fadeProfile}
-        >
-          {
-            this.state.profiles.map((profile, i) => {
-              return (
-                <Directory
-                  key={i}
-                  listIndex={i}
-                  profile={profile}
-                  onChatPress={this.onChatPress}
-                />
-              )
-            })
-          }
-        </ViewPager>
-      </ContainerView>
+    <ViewPager
+      selectedIndex={this.state.selectedIndex}
+      onSelect={this.onIndexChange}
+    >
+      {
+        this.state.profiles.map((profile, i) => {
+          return (
+            <Directory
+              key={i}
+              listIndex={i}
+              profile={profile}
+              onChatPress={this.onChatPress}
+            />
+          )
+        })
+      }
+      </ViewPager>
     )
   }
 }

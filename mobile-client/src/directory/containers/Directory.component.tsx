@@ -26,80 +26,84 @@ import { TherapistServices } from '../components/TherapistServices.component';
 interface ComponentProps {
   profile: Profile;
   listIndex: number
-  onChatPress: () => void;
+  onChatPress: (profile: Profile) => void;
 }
 
 export type DirectoryProps = ThemedComponentProps & ComponentProps;
 
 class DirectoryComponent extends React.Component<DirectoryProps> {
 
-  private onChatPress = () => {
-    this.props.onChatPress();
+  private onChatPress = (profile: Profile) => {
+    this.props.onChatPress(profile)
   };
 
   public render(): React.ReactNode {
     const { themedStyle, profile, listIndex } = this.props;
 
     return (
-      <>
-      <View style={themedStyle.infoContainer}>
-        <View style={themedStyle.detailsContainer}>
-          <Text
-            style={themedStyle.titleLabel}
-            category='h6'>
-            {profile.name}
-          </Text>
-          <Text
-            style={themedStyle.rentLabel}
-            appearance='hint'
-            category='p2'>
-            Rate
-          </Text>
-          <View style={themedStyle.bookContainer}>
-            <PriceText
-              style={themedStyle.priceLabel}
-              valueStyle={themedStyle.priceValueLabel}
-              scaleStyle={themedStyle.priceScaleLabel}
-              scale='hour'>
-              {`$${profile.rate}`}
-            </PriceText>
-            <Button
-              style={themedStyle.bookButton}
-              textStyle={textStyle.button}
-              onPress={this.onChatPress}>
-              CHAT NOW
-            </Button>
+      <ContainerView style={themedStyle.container}>
+        <ImageBackground
+        style={themedStyle.backgroundImage}
+          source={{ uri: profile.photo }}
+        />
+        <View style={themedStyle.infoContainer}>
+          <View style={themedStyle.detailsContainer}>
+            <Text
+              style={themedStyle.titleLabel}
+              category='h6'>
+              {profile.name}
+            </Text>
+            <Text
+              style={themedStyle.rentLabel}
+              appearance='hint'
+              category='p2'>
+              Rate
+            </Text>
+            <View style={themedStyle.bookContainer}>
+              <PriceText
+                style={themedStyle.priceLabel}
+                valueStyle={themedStyle.priceValueLabel}
+                scaleStyle={themedStyle.priceScaleLabel}
+                scale='hour'>
+                {`$${profile.rate}`}
+              </PriceText>
+              <Button
+                style={themedStyle.bookButton}
+                textStyle={textStyle.button}
+                onPress={() => this.onChatPress(this.props.profile)}>
+                CHAT NOW
+              </Button>
+            </View>
+          </View>
+          <View style={themedStyle.facilitiesContainer}>
+            <Text
+              style={themedStyle.sectionLabel}
+              category='s1'>
+              Summary
+            </Text>
+            <TherapistSpecialties
+              style={themedStyle.primaryFacilityList}
+              data={profile.specialties}
+            />
+            <TherapistServices
+              style={themedStyle.facilityList}
+              data={profile.services}
+            />
           </View>
         </View>
-        <View style={themedStyle.facilitiesContainer}>
+        <View style={themedStyle.aboutSection}>
           <Text
             style={themedStyle.sectionLabel}
             category='s1'>
-            Summary
+            About
           </Text>
-          <TherapistSpecialties
-            style={themedStyle.primaryFacilityList}
-            data={profile.specialties}
-          />
-          <TherapistServices
-            style={themedStyle.facilityList}
-            data={profile.services}
-          />
+          <Text
+            style={themedStyle.aboutLabel}
+            appearance='hint'>
+            {profile.description}
+          </Text>
         </View>
-      </View>
-      <View style={themedStyle.aboutSection}>
-        <Text
-          style={themedStyle.sectionLabel}
-          category='s1'>
-          About
-        </Text>
-        <Text
-          style={themedStyle.aboutLabel}
-          appearance='hint'>
-          {profile.description}
-        </Text>
-      </View>
-      </>
+      </ContainerView>
     );
   }
 }

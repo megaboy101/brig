@@ -1,7 +1,7 @@
 import { Channel, Socket } from 'phoenix'
 import { SocketMessage } from './models/Message.model'
 
-const wsUrl = 'ws://06755f46.ngrok.io/socket'
+const wsUrl = 'ws://cbb358b7.ngrok.io/socket'
 const user = 'Anon'
 const timeout = 10000
 

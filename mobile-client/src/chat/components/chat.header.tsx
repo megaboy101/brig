@@ -68,7 +68,6 @@ class ChatHeaderComponent extends React.Component<ChatHeaderProps> {
     return (
       <TopNavigationAction
         icon={this.renderProfileAvatar}
-        onPress={this.onProfile}
       />
     );
   };
@@ -101,6 +100,7 @@ class ChatHeaderComponent extends React.Component<ChatHeaderProps> {
 export const ChatHeader = withStyles(ChatHeaderComponent, (theme: ThemeType) => ({
   container: {
     backgroundColor: theme['background-basic-color-1'],
+    marginTop: 40
   },
 }));
 
