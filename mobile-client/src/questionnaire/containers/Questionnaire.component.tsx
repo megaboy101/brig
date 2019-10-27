@@ -5,6 +5,7 @@ import { Question } from '../models/Question';
 import { View } from 'react-native';
 import { Search } from '../models/Search';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
+import { SERVER_DOMAIN } from '../../../App';
 
 interface ComponentProps {
 }
@@ -138,7 +139,7 @@ class QuestionnaireComponent extends React.Component<QuestionnaireProps, Questio
     }
 
     try {
-      const res: Response = await fetch('http://cbb358b7.ngrok.io/api/professionals/search', {
+      const res: Response = await fetch(`http://${SERVER_DOMAIN}/api/professionals/search`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

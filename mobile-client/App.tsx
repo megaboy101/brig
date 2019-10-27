@@ -11,6 +11,8 @@ import { DirectoryContainer as Directory } from './src/directory/containers/Dire
 import { Questionnaire } from './src/questionnaire/containers/Questionnaire.component';
 import { Intro } from './src/intro/Intro.component';
 
+export const SERVER_DOMAIN = '7130b83d.ngrok.io'
+
 const AppNavigator = createStackNavigator({
   Chat,
   Directory,

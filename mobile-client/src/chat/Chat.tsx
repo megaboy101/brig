@@ -10,8 +10,9 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from 'react-native-ui-kitten'
+import { SERVER_DOMAIN } from '../../App'
 
-const url = 'http://76528b72.ngrok.io/socket'
+const url = `http://${SERVER_DOMAIN}/socket`
 const socket = new Socket(url, {})
 
 const BackIcon = (style) => (

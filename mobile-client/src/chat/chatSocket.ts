@@ -1,7 +1,8 @@
 import { Channel, Socket } from 'phoenix'
 import { SocketMessage } from './models/Message.model'
+import { SERVER_DOMAIN } from '../../App'
 
-const wsUrl = 'ws://cbb358b7.ngrok.io/socket'
+const wsUrl = `ws://${SERVER_DOMAIN}/socket`
 const user = 'Anon'
 const timeout = 10000
 

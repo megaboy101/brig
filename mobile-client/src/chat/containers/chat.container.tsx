@@ -21,6 +21,7 @@ import {
 } from '../../profiles/Profile2';
 import { Chat } from './chat.component';
 import { Socket } from 'phoenix'
+import { SERVER_DOMAIN } from '../../../App';
 
 interface State {
   newMessageText: string;
@@ -36,7 +37,7 @@ export class ChatContainer extends React.Component<NavigationStackScreenProps, S
   sendMessage: (content: string) => void
 
   componentDidMount(): void {
-    const url = 'ws://cbb358b7.ngrok.io/socket'
+    const url = `ws://${SERVER_DOMAIN}/socket`
     const socket = new Socket(url, {})
     const user = 'anon'
 
